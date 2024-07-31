@@ -1,5 +1,7 @@
 (ns demo3.core
-  (:gen-class))
+  (:gen-class)
+  (:import [java.lang Math])
+  )
 
 (defn add [a b]
   (println "Addition:", (+ a,b)))
@@ -45,6 +47,8 @@
   (def sub #(- %1 %2)) ;; 
 
   (println (sub 12 15))
+
+  (println (Math/sqrt 200))
 
   ;; var f1 = func(a,b int)int{
   ;;              return a+b          
