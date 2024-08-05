@@ -64,7 +64,7 @@
   [& names]
   (println "Hello " names))
 
-(defn greet3 [& names]
+(defn greet3 [& names ]
  ;; (str "Hello ",(clojure.string/join ", " names) "!") 
  ;; (def n (str "Hello ",(clojure.string/join ", " names) "!"))
 

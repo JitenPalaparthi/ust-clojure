@@ -1,0 +1,1 @@
+- Print a varialbe range of prime numbers using anonymous function

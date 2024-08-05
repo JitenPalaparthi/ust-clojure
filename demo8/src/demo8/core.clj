@@ -27,8 +27,8 @@
   (println (type sum1))
   (println (type sum2)) 
   (println (type sum3)) 
-
   (println (type sum))
+  
   )
 
 (defn sum[ i j]
