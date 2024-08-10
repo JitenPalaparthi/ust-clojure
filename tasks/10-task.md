@@ -2,7 +2,7 @@
 Take a list and a set of same size 
 
 
-list1 = 100, 200, nil, 400 , nil , 1 , nil
+list1 = 100, 200, nil, 400 , nil , 1 , nil 
 set1 = 100 ,200 , 300 , nil, 400, nil, 500 , 600
 
 - write a function to accept list and set as input parameters and return the another list with the sum of list1 and set1 at each element level
