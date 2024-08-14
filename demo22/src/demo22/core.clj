@@ -1,6 +1,7 @@
 (ns demo22.core
   (:gen-class))
 (declare reduce-with)
+(declare greet)
 ;;(declare reduce-with2)
 (defn -main
   "I don't do a whole lot ... yet."
@@ -46,7 +47,11 @@
   ;; (def total-cost3 (reduce reduce-with2
   ;;                          0 shopping-cart))
   ;; (println "total-cost:" total-cost3)
-  )
+
+  (greet)
+  (greet "UST")
+  (greet "Hey" "UST")
+)
 
 ;; acc: accumulator --> Current accumulated value
 ;; the default value is 0
@@ -60,3 +65,10 @@
 ;;   (+ acc1 (*  (:price item) (:quantity item)))
 ;;   (println acc2)
 ;;   )
+
+
+(defn greet ([] (println "Hello World!"))
+  ([msg] (println "Hello" msg))
+  ([msg name] (println msg name))
+  )
+

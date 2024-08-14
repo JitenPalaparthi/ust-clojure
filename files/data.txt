@@ -1,0 +1,2 @@
+Hello folks, we are in Clojure session
+ This session is all about file based operations
