@@ -10,8 +10,10 @@
   "I don't do a whole lot ... yet."
   [& args]
   (println "Hello, World!")
+  ;;(util/greet) ;; cannot be called as it is private
   (util/util-greet)
   (util/util-greet-p1 "Hello UST Global. Welcome tom clojure training")
+  
   (service/greet-service)
   (dir3/greet)
   )
