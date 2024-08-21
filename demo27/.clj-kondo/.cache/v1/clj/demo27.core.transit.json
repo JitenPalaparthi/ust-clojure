@@ -1,0 +1,1 @@
+["^ ","~$some-task",["^ ","~:row",3,"~:col",1,"~:fixed-arities",["~#set",[1]],"~:name","^0","~:ns","~$demo27.core","~:top-ns","^7","~:type","~:fn"],"~$-main",["^ ","^1",4,"^2",1,"~:varargs-min-arity",0,"^5","^;","^6","^7","^8","^7","^9","^:"],"~:filename","/Users/jiten/workspace/training/ust-clojure/demo27/src/demo27/core.clj"]
