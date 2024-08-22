@@ -17,4 +17,8 @@
 (defn some-task [name]
   (dotimes [i 5]
     (println (str "Thread" name ":" i))
-    (Thread/sleep 1000)))
+    (Thread/sleep 1000))) ;; Thread.sleep(1000)
+
+;; (defn get-square [num] 
+;;   (* num num) ; return num * num
+;;   )
