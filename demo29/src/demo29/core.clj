@@ -11,7 +11,7 @@
   (def f2 (future (dotimes [ i 10](decrement)))) 
   (def f1 (future (increment)))
   
-  (Thread/sleep 100) 
+  ;;(Thread/sleep 100) 
   (println "counter:" @counter)
   )
 
