@@ -16,12 +16,16 @@
   (let [vector-promise (promise)] 
     (future 
       (let [vec (create-vector)]
-        (deliver vector-promise vec))) 
+        (deliver vector-promise vec)
+        
+        ) 
+      ) 
+    (future
     (let [original-vec @vector-promise
           double-vec (double-vector original-vec)
           ]
       (println "original vector:" original-vec)
       (println "double-vector:" double-vec)
       ) 
-    ) 
+    ) )
   )
