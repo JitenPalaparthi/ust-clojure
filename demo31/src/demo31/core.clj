@@ -29,3 +29,29 @@
       ) 
     ) )
   )
+
+;; #{1 2 3 4}
+;; '( 1 2 3 4)
+;; [1 2 3 4]
+;; {name: "Jiten" age: 39 }
+;; (def sum (#(+ %1 %2) 100 200))
+;; @  ref , promise 
+;; :^dynamic
+;; key:
+;; .
+;; /
+;; (Thread. .sleep 1000)
+;; (Thread/sleep 2000)
+; 
+;;def, defn , defproject, deref
+
+;; map
+;; reduce
+;; apply
+;; doall
+;; dorun
+;; doseq
+;; dotimes
+;; dosync
+
+;; - What is lazy evaluation
