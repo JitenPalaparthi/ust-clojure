@@ -1,0 +1,4 @@
+- create deftype as Number 
+- create a filed which is a vector
+- create a protocol with Calc
+- implement functions like add, multiply, average on the type Number
