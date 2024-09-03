@@ -5,15 +5,24 @@
             [ring.adapter.jetty :as jetty]
             [ring.util.response :as response]))
 
+(defn validate-params [params] 
+  (if (and (contains? params "name") (contains? params "email"))
+    nil
+    "Missing required parameters: either name or email"
+  ))
+
 (defn hello-world-handler []
   (response/response "Hello, World!"))
 (defn greet-handler [name]
   (response/response (str "Hello," name)))
 (defn post-handler [request] 
   (let [body (:body request)
-    params (slurp body)]
+    params (slurp body)
+        error (validate-params params)]
+    (if error
+    (response/status (response/response error) 400)
     (response/response (str "Received data:" params))
-    )
+    ))
   )
 (defroutes app-routes
   (GET "/" [] (hello-world-handler))
