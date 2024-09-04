@@ -28,7 +28,7 @@
   (GET "/" [] (hello-world-handler))
   (GET "/greet/:name" [name] (greet-handler name))
   (GET "/books/:id" [id] (response/response (str "Hello, you are trying to access this book id:" id)))
-  (POST "/submit" request (post-handler request))
+  (POST "/submit" [request] (post-handler request))
   (route/not-found "Not Found"))
 (defn -main
   [& args]
