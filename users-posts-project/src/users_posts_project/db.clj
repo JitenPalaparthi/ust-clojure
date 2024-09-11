@@ -38,4 +38,14 @@
   (sql/query ds  ["SELECT * FROM posts where user_id = ?" user-id])
   )
 
-;; 1. 
+(defn get-all-posts-with-user []
+  (sql/query ds ["SELECT posts.id as post_id, posts.body, posts.title,posts.status,posts.last_updated,
+            users.id as user_id,users.username,users.email,users.status,users.last_updated FROM posts
+                  INNER JOIN users ON posts.user_id=users.id"])
+  )
+
+;; 1. do these operations for mysql
+;; 2. insert operation, should return only the id, refer demo46
+;; 3. make sure that the data is inserted into the database
+;; 4. get posts which are not active/inactive
+;; 5. get users who are active/inactive
