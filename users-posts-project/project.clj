@@ -11,7 +11,9 @@
                  [ring/ring-json "0.5.1"]
                  [ring/ring-jetty-adapter "1.9.6"]
                  [compojure "1.6.2"]
-                 [cheshire "5.10.1"]]
+                 [cheshire "5.10.1"] 
+                 [org.clojure/data.json "2.4.0"]
+                 ]
   :main ^:skip-aot users-posts-project.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all
