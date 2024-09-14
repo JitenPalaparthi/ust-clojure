@@ -10,6 +10,12 @@
               :password "app123"})
 (def ds (jdbc/get-datasource db-spec))
 
+(defn parse-id [id-str]
+  (try
+    (Integer/parseInt id-str)
+    (catch NumberFormatException e
+      nil)))
+
 (defn create-user [user] 
 (try
   ;; check :username and :email exists,
@@ -23,19 +29,24 @@
 )
 
 (defn update-user [id user]
-  (sql/update! ds :users user {:id id}))
+  (def user-id (parse-id id))
+  (sql/update! ds :users user {:id user-id}))
 
 (defn update-user-status [id status]
-  (sql/update! ds :users {:status status} {:id id})
-  )
+   (def user-id (parse-id id))
+  (sql/update! ds :users {:status status} ["id = ?" user-id]))
 
 (defn delete-user [id]
-  (println "XXXXXX----->>>" id)
-  (sql/delete! ds :users {:id id}))
+  (def user-id (parse-id id))
+  (sql/delete! ds :users {:id user-id}))
 
 (defn get-user [id]
-  (sql/get-by-id ds :users id)
+  (def user-id (parse-id id))
+  (sql/get-by-id ds :users user-id)
   )
+
+;; (defn get-user [id]
+;;   (first (jdbc/execute! ds ["SELECT * FROM users WHERE id = ?" id])))
 
 (defn get-all-users [] 
   (sql/query ds ["SELECT * FROM users"])

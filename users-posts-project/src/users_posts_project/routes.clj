@@ -10,12 +10,6 @@
 (defn json-read [body]
   (json/read (StringReader. body) :key-fn keyword)) ;; Convert String to StringReader and then read JSON
 
-
-(defn json-response [data]
-  {:status 200
-   :headers {"Content-Type" "application/json"}
-   :body (cheshire/generate-string data)})
-
 (defn create-user [req]
   (let [user-data (json-read (slurp (:body req)))
         inserted (db/create-user user-data)]
@@ -27,6 +21,23 @@
         user-id (get-in req [:params :id])]
     (db/update-user user-id user-data) ;; Calls the update function from db
     (response {:message (str "User " user-id " updated successfully.")})))
+
+;; PUT route for updating a user's status
+(defn update-user-status [req]
+   (let [user-id (get-in req [:params :id])  ;; Get the user ID from the URL
+            ]        ;; Convert user ID to integer
+     (if user-id
+       (let [user-data (json/read-str (slurp (:body req)) :key-fn keyword)  ;; Read the JSON body
+             status-field (get user-data :status)]                                 ;; Extract status from the body 
+         (if (nil? status-field)
+           (status (response {:message "Status field is required"}) 400)
+           (do
+             (db/update-user-status user-id status-field)                         ;; Call database function to update status
+             (response {:message (str "User " user-id " status updated to " status-field)})) ;; Return success message
+          ;; If status is missing, return a 400 response
+           ))
+      ;; If user ID is invalid, return a 400 response
+       (status (response {:message "Invalid user ID"}) 400))))
 
 ;; DELETE route for deleting a user
 (defn delete-user [req]
@@ -48,10 +59,9 @@
       (status (response {:message "User not found"}) 404))))
 
 (defroutes user-routes
-  (GET "/users" [] (json-response (db/get-all-users)))
-  (GET "/users/:id" [id]  (json-response (db/get-user (Integer. id))))
-  ;; (GET "/users" [] (get-all-users))       ;; Get all users 
-  ;; (GET "/users/:req" req (get-user req))     ;; Get specific user by ID
+  (GET "/users" [] (get-all-users))       ;; Get all users  
+  (GET "/users/:id" id (get-user id))     ;; Get specific user by ID
   (POST "/users" req (create-user req))
-  (PUT "/users/:req" req (update-user req)) ;; Use user ID in the route
-  (DELETE "/users/:req" req (delete-user req))) ;; Use user ID in the route
+  (PUT "/users/:id" id (update-user id)) ;; Use user ID in the route 
+  (PUT "/users/:id/status" req (update-user-status req)) ;; Use user ID in the route
+  (DELETE "/users/:id" id (delete-user id))) ;; Use user ID in the route

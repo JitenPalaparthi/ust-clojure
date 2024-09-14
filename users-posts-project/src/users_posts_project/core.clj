@@ -11,7 +11,3 @@
 
 (defn -main []
   (run-jetty app {:port 3000 :join? false}))
-
-;; curl -X POST http://localhost:3000/users\ \
-;;      -H "Content-Type: application/json" \
-;;      -d '{"username": "john_doe", "email": "john@example.com"}'
