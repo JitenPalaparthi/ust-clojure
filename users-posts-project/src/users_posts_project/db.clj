@@ -2,43 +2,56 @@
   (:require [next.jdbc :as jdbc]
             [next.jdbc.sql :as sql]))
 
-(def db-spec {:db-type "postgres"
+(def db-spec {:dbtype "postgres"
               :dbname "appdb"
-              :host "localhost:5432"
+              :host "localhost"
+              :port 5432
               :user "app"
               :password "app123"})
 (def ds (jdbc/get-datasource db-spec))
 
-(defn create-user [user]
-  (sql/insert ds :users user))
+(defn create-user [user] 
+  (println "--->>>>" user)
+(try
+  (sql/insert! ds :users user)
+  (catch Exception e
+    (println "Error creating user:" (.getMessage e))
+    nil
+    )
+  )
+)
 
 (defn update-user [id user]
-  (sql/update ds :users user {:id id}))
+  (sql/update! ds :users user {:id id}))
 
 (defn update-user-status [id status]
-  (sql/update ds :users {:status status} {:id id})
+  (sql/update! ds :users {:status status} {:id id})
   )
 
 (defn delete-user [id]
-  (sql/delete ds :users {:id id}))
+  (sql/delete! ds :users {:id id}))
 
 (defn get-user [id]
   (sql/get-by-id ds :users id)
   )
 
+(defn get-all-users [] 
+  (sql/query ds ["SELECT * FROM users"])
+  )
+
 (defn create-post [post]
-  (sql/insert ds :posts post)
+  (sql/insert! ds :posts post)
   )
 
 (defn update-post [id post]
-  (sql/update ds :posts post {:id id})
+  (sql/update! ds :posts post {:id id})
   )
 
 (defn update-post-status [id status]
-  (sql/update ds :posts {:status status} {:id id}))
+  (sql/update! ds :posts {:status status} {:id id}))
 
 (defn delete-post [id]
-  (sql/delete ds :posts {:id id})
+  (sql/delete! ds :posts {:id id})
   )
 
 (defn get-post-by-user [user-id]
