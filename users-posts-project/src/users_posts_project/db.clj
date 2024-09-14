@@ -11,8 +11,9 @@
 (def ds (jdbc/get-datasource db-spec))
 
 (defn create-user [user] 
-  (println "--->>>>" user)
 (try
+  ;; check :username and :email exists,
+  ;; if does not then raise exception
   (sql/insert! ds :users user)
   (catch Exception e
     (println "Error creating user:" (.getMessage e))
@@ -29,6 +30,7 @@
   )
 
 (defn delete-user [id]
+  (println "XXXXXX----->>>" id)
   (sql/delete! ds :users {:id id}))
 
 (defn get-user [id]
