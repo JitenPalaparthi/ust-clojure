@@ -52,6 +52,7 @@
 
 ;; GET route for retrieving a specific user by ID
 (defn get-user [req]
+  (println req)
   (let [user-id (get-in req [:params :id])
         user (db/get-user user-id)]
     (if user
@@ -60,8 +61,9 @@
 
 (defroutes user-routes
   (GET "/users" [] (get-all-users))       ;; Get all users  
-  (GET "/users/:id" id (get-user id))     ;; Get specific user by ID
+  (GET "/users/:id" req (get-user req))     ;; Get specific user by ID
   (POST "/users" req (create-user req))
-  (PUT "/users/:id" id (update-user id)) ;; Use user ID in the route 
+  (PUT "/users/:id" req (update-user req)) ;; Use user ID in the route 
   (PUT "/users/:id/status" req (update-user-status req)) ;; Use user ID in the route
-  (DELETE "/users/:id" id (delete-user id))) ;; Use user ID in the route
+  (DELETE "/users/:id" req (delete-user req))) ;; Use user ID in the route
+

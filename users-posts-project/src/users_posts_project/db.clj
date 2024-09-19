@@ -57,17 +57,21 @@
   )
 
 (defn update-post [id post]
-  (sql/update! ds :posts post {:id id})
+  (def user-id (parse-id id))
+  (sql/update! ds :posts post {:id user-id})
   )
 
 (defn update-post-status [id status]
-  (sql/update! ds :posts {:status status} {:id id}))
+    (def user-id (parse-id id))
+  (sql/update! ds :posts {:status status} [{:id user-id}]))
 
 (defn delete-post [id]
-  (sql/delete! ds :posts {:id id})
+   (def user-id (parse-id id))
+  (sql/delete! ds :posts {:id user-id})
   )
 
-(defn get-post-by-user [user-id]
+(defn get-post-by-user [id]
+   (def user-id (parse-id id))
   (sql/query ds  ["SELECT * FROM posts where user_id = ?" user-id])
   )
 
@@ -82,7 +86,7 @@
                   INNER JOIN users ON posts.user_id=users.id WHERE users.status='active' AND posts.status='active'"]))
 
 (defn get-all-posts-after [date]
-  (sql/query ds ["SELECT * FROM posts where last_updated > ?",date])
+  (sql/query ds ["SELECT * FROM posts where last_updated > ?", date])
   )
 ;; (get-all-posts-after "2024-08-01") ;; yyyy-mm-dd
 
@@ -92,3 +96,6 @@
 ;; 4. get posts which are not active/inactive
 ;; 5. get users who are active/inactive
 ;; 6. get all posts between two dates 
+
+;; there could be some errors in post CRUD operations, make necessary changes 
+
